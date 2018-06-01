@@ -31,10 +31,9 @@ RUN set -x; \
 
 
 COPY config /mqtt/config
-RUN cd /mqtt/config && ls -l
 
-EXPOSE 1883 8883 9001
-VOLUME ["/mqtt/config", "/mqtt/data""/mqtt/log"]
+EXPOSE 1883 9001
+VOLUME ["/mqtt/config", "/mqtt/data"]
 COPY run.sh /
 RUN chmod +x /run.sh
 ENTRYPOINT ["/run.sh"]
