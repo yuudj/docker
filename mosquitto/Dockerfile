@@ -11,6 +11,7 @@ RUN set -x; \
         && apt-get remove libwebsockets3 -y \
 	&& git clone https://github.com/warmcat/libwebsockets.git \
 	&& cd libwebsockets \
+        && git checkout tags/v2.2.1 \
 	&& mkdir build \
 	&& cd build \
 	&& cmake .. -DCMAKE_C_COMPILER=/usr/bin/gcc \
