@@ -2,12 +2,13 @@ FROM buildpack-deps:jessie
 LABEL maintainer="https://github.com/yuudj/docker"
 ENV PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-ENV MOSQUITTO_VERSION=1.4.14
+ENV MOSQUITTO_VERSION=1.4.15
 RUN set -x; \
         apt-get update && apt-get install -y --no-install-recommends \
                 libc-ares-dev git libmysqlclient-dev libssl-dev build-essential wget  ca-certificates \
                 curl libcurl4-openssl-dev  libc-ares2 libcurl3 \
-		cmake uuid-dev zlib1g-dev daemon \
+		cmake uuid-dev zlib1g-dev daemon libwebsockets-dev\
+        && apt-get remove libwebsockets3 -y \
 	&& git clone https://github.com/warmcat/libwebsockets.git \
 	&& cd libwebsockets \
 	&& mkdir build \
@@ -32,7 +33,8 @@ RUN set -x; \
 
 COPY config /mqtt/config
 
-EXPOSE 1883 9001
+EXPOSE 1883
+EXPOSE 8080
 VOLUME ["/mqtt/config", "/mqtt/data"]
 COPY run.sh /
 RUN chmod +x /run.sh

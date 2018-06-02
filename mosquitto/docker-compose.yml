@@ -6,7 +6,7 @@ services:
       restart: always
       ports:
         - "1883:1883"
-        - "9001:9001"
+        - "8080:8080"
       volumes:
         - ./data/mqtt/config:/mqtt/config
         - ./data/mqtt/data:/mqtt/data
