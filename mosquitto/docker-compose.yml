@@ -1,6 +1,7 @@
-version: '3'
+version: '3.1'
 services:
   mqtt:
+      build: .
       image: hot/mosqui
       container_name: mqtt
       restart: always
@@ -11,3 +12,9 @@ services:
         - ./data/mqtt/config:/mqtt/config
         - ./data/mqtt/data:/mqtt/data
         - ./data/mqtt/log:/mqtt/log
+      depends_on:
+        - mongo
+  mongo:
+    image: mongo
+    ports:
+    - "27017:27017"
